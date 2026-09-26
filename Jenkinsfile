@@ -3,11 +3,15 @@ pipeline {
 
     stages {
         stage ('test'){
-            echo 'Installation des dependences'
-            sh 'pip install -r requirements.txt'
+            steps{
+                echo 'Installation des dependences'
+                sh 'pip install -r requirements.txt'
+            }
+            steps{
+                echo 'Lancement des test'
+                sh 'pytest'
+            }
 
-            echo 'Lancement des test'
-            sh 'pytest'
         }
 
     }
