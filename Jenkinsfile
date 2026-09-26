@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.14-slim'
+        }
+    }
 
     stages {
         stage('test'){
