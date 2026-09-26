@@ -1,21 +1,17 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.14-slim'
-        }
-    }
+    agent any
 
     stages {
-        stage('test'){
-            steps{
-                echo 'Installation des dependences'
-                sh 'pip install -r requirements.txt'
-
-                echo 'Lancement des test'
-                sh 'pytest'
+        stage('Test') {
+            steps {
+                sh '''
+                    docker run --rm \
+                    -v "$WORKSPACE:/app" \
+                    -w /app \
+                    python:3.14-slim \
+                    sh -c "pip install -r requirements.txt && pytest"
+                '''
             }
-
         }
-
     }
 }
